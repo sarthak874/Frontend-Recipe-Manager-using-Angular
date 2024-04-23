@@ -24,7 +24,16 @@ export class ShoppingListService {
   }
 
   addIngredients(ingredients : Ingredient[]){
-    this.ingredients.push(...ingredients);
-    this.ingredientsChanged.emit(ingredients);
+    const uniqueIngredients = ingredients.filter(newIngredient =>
+      !this.ingredients.some(existingIngredient =>
+        existingIngredient.name === newIngredient.name &&
+        existingIngredient.amount === newIngredient.amount
+      )
+    );
+
+    this.ingredients.push(...uniqueIngredients);
+    this.ingredientsChanged.emit(this.ingredients.slice());
+    // this.ingredients.push(...ingredients);
+    // this.ingredientsChanged.emit(ingredients);
   }
 }
