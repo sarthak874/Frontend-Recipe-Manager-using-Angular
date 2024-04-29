@@ -33,10 +33,17 @@ export class RecipeService {
   ])
   ];
 
+  // private recipes: Recipe[] = []
+
   constructor(private shoppingListService : ShoppingListService) { }
 
   getRecipes(){
     return this.recipes.slice();
+  }
+
+  setRecipes(recipes: Recipe[]){                //sets or updates recipes, listened at data-storage service
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
   }
 
   getRecipe(index: number){
